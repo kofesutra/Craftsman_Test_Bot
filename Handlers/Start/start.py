@@ -23,14 +23,6 @@ async def on_start(message: Message, state: FSMContext, bot: Bot, request: Reque
     await state.update_data(first_name=first_name_here)
     last_name_here = message.from_user.last_name
     await state.update_data(last_name=last_name_here)
-    date_of_use = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    try:
-        columns = f'user_id, username, first_name, last_name, date_of_use, from'
-        values = f"'{user_id}', '{username}', '{first_name_here}', '{last_name_here}', '{date_of_use}', 'Craftsman_Test_Bot'"
-        await request.add_line(settings.db.incoming_users, columns, values)
-    except Exception as ex:
-        logging.error(f'[ERROR]: {ex}', exc_info=True)
 
     if await check_subscribing(user_id, bot):
 
